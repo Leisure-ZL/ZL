@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#main{
+				margin: 50px 400px;
+			}
+			.btn{
+				width: 100px;
+				height: 50px;
+			}
+			#score{
+				width: 200px;
+				height: 50px;
+				border: 1px solid black;
+				float: right;
+				text-align: center;
+				line-height: 50px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<input type="button" value="开始" id="begin" class="btn"/>
+			<input type="button" value="暂停" id="pause" class="btn"/>
+			<input type="button" value="1" id="1" class="btn" />
+			<input type="button" value="2" id="2" class="btn" />
+			<input type="button" value="3" id="3" class="btn" />
+			<div id="score">0</div>
+		</div>
+	</body>
+	<script>
+		var timer = null;
+		var oMain = document.getElementById("main");
+		
+		function Map(atom,xnum,ynum){//地图,设置单位大小，及根据单位大小创建地图
+			this.atom = atom;
+			this.xnum = xnum;
+			this.ynum = ynum;
+			
+			this.create = function(){
+				
+				this.canvas = document.createElement("div");
+				this.canvas.style.cssText = "position: relative;top: 40px;border: 1px solid red;background: #F1F1F1;"
+				this.canvas.style.width = this.atom * this.xnum + "px";//画布宽
+				this.canvas.style.height = this.atom * this.ynum + "px";//画布高
+				main.appendChild(this.canvas);
+			}
+		}
+		
+		function Food(map){//食物
+			this.width = map.atom;
+			this.height = map.atom;
+			//实现随机背景色
+			this.bgColor = "rgb("+Math.floor(Math.random()*200)+","+Math.floor(Math.random()*200)+","+Math.floor(Math.random()*200)+")";
+	
+			this.x = Math.floor(Math.random()*map.xnum);
+			this.y = Math.floor(Math.random()*map.ynum);
+			
+			this.flag = document.createElement('div');
+			this.flag.style.width = this.width + 'px';
+			this.flag.style.height = this.height + 'px';
+			this.flag.style.backgroundColor = this.bgColor;
+			this.flag.style.borderRadius = '50%';
+			this.flag.style.position = "absolute";
+			this.flag.style.left = this.x * this.width + 'px';
+			this.flag.style.top = this.y * this.height + 'px';
+			
+			map.canvas.appendChild(this.flag);
+		}
+		
+		//重新开始
+		function restart(map,snake){
+			for(var i=0; i<snake.body.length; i++){
+				map.canvas.removeChild(snake.body[i].flag);
+			}
+			snake.body = [
+				{x : 2,y : 0},//蛇头
+				{x : 1,y : 0},//蛇身
+				{x : 0,y : 0}//蛇尾
+			]
+			snake.direction = "right";
+			snake.display();
+			
+			map.canvas.removeChild(food.flag);
+			food = new Food(map);
+		}
+		
+		function Snake(map){
+			this.width = map.atom;
+			this.height = map.atom;
+			
+			this.direction = "right";
+			
+			this.body = [
+				{x : 2,y : 0},
+				{x : 1,y : 0},
+				{x : 0,y : 0}
+			]
+			
+			this.display = function(){
+				for(var i=0; i<this.body.length; i++){
+					if(this.body[i].x != null){
+						var s = document.createElement('div');
+						//将节点保存
+						this.body[i].flag = s;
+						
+						//设置样式
+						s.style.width = this.width + 'px';
+						s.style.height = this.height + 'px';
+						s.style.backgroundColor = "rgb("+Math.floor(Math.random()*200)+","+Math.floor(Math.random()*200)+","+Math.floor(Math.random()*200)+")";
+						s.style.borderRadius = '50%';
+						
+						//设置位置
+						s.style.position = "absolute";
+						s.style.left = this.body[i].x * this.width + 'px';
+						s.style.top = this.body[i].y * this.height + 'px';
+						
+						//添加到地图
+						map.canvas.appendChild(s);
+					}
+				}
+			}
+			
+			this.run = function(){
+				for(var i=this.body.length-1; i>0; i--){
+					this.body[i].x = this.body[i-1].x;
+					this.body[i].y = this.body[i-1].y
+					
+				}
+				switch(this.direction){
+					case "left":this.body[0].x -= 1;break;
+					case "right":this.body[0].x += 1;break;
+					case "up":this.body[0].y -= 1;break;
+					case "down":this.body[0].y += 1;break;
+				}
+				//吃食物
+				if(this.body[0].x == food.x && this.body[0].y == food.y){
+					this.body.push({x : null,y : null,flag : null});
+					
+					map.canvas.removeChild(food.flag);
+					food = new Food(map);
+				}
+				
+				//判断游戏结束
+				if(this.body[0].x<0 || this.body[0].x>map.xnum-1 || this.body[0].y<0 || this.body[0].y>map.ynum-1){
+					clearInterval(timer);
+					alert("GAME OVER!");
+					restart(map,this);
+					return false;
+				}
+				for(var i=4; i<this.body.length; i++){
+					if(this.body[0].x == this.body[i].x && this.body[0].y == this.body[i].y){
+						clearInterval(timer);
+						alert("GAME OVER!");
+						restart(map,this);
+						return false;
+					}
+				}
+				
+				//删除原来
+				for(var i=0; i<this.body.length; i++){
+					if(this.body[i].flag != null){
+						map.canvas.removeChild(this.body[i].flag);
+					}
+				}
+				this.display();
+			}
+		}
+
+		
+		//创建地图对象
+		var map = new Map(20,40,20);
+		map.create();
+		
+		//创建食物对象
+		var food = new Food(map);
+		
+		//创建蛇对象
+		var snake = new Snake(map);
+		snake.display();
+		
+		
+		//加上键盘事件(改变蛇头方向)
+		window.onkeydown = function(e){
+			event = e || window.event;
+			
+			switch(event.keyCode){
+				case 38:
+					if(snake.direction != "down")//禁止掉头
+						snake.direction = "up";
+				break;
+				case 40:
+					if(snake.direction != "up")
+						snake.direction = "down";
+				break;
+				case 37:
+					if(snake.direction != "right")
+						snake.direction = "left";
+				break;
+				case 39:
+					if(snake.direction != "left")
+						snake.direction = "right";
+				break;
+			}
+		}
+		
+		var speed = 100;
+		
+		function start(){
+			clearInterval(timer);
+			timer = setInterval(function(){
+			snake.run();
+			document.getElementById("score").innerHTML = snake.body.length-3;
+			start();
+			},speed)
+		}
+		
+		//难度
+		document.getElementById("1").onclick = function(){
+			speed = 100;
+		}
+		
+		document.getElementById("2").onclick = function(){
+			speed = 50;
+		}
+		
+		document.getElementById("3").onclick = function(){
+			speed = 20;
+		}
+		
+		document.getElementById("begin").onclick = function(){
+			start();
+		}
+		
+		document.getElementById("pause").onclick = function(){
+			
+			clearInterval(timer);
+		}
+	</script>
+</html>
