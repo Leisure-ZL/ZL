@@ -1,0 +1,11 @@
+<view class="content">
+  <image src="cloud://notepad-vwmbg.6e6f-notepad-vwmbg-1302872857/img/bg-center.png" class="bg"></image>
+  <view class="top">
+    <image class="head-img" src="{{headimg}}"></image>
+    <button class="head-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="login" style="display:{{display}}">登录</button>
+  </view>
+  <view class="info-box"> 
+    <view class="item" bindtap="toHelp">帮助</view>
+    <view class="item">意见反馈</view>
+  </view>
+</view>

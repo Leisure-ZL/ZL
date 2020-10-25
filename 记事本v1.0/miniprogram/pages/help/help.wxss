@@ -1,0 +1,12 @@
+.title{
+  width: 100rpx;
+  height: 80rpx;
+  font-size: 1.2em;
+  margin: 0 auto;
+}
+.content{
+  width: 720rpx;
+  height: auto;
+  margin: 0 auto;
+  white-space: pre-line;
+}

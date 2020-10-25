@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/publics/publics",
+    "pages/privacy/privacy",
+    "pages/center/center",
+    "pages/help/help"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "记事本v1.0",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar":{
+    "list":[
+      {
+      "pagePath":"pages/publics/publics",
+      "text":"留言板",
+      "iconPath":"icon/public.png",
+      "selectIconPath":"icon/public.png"
+      },
+      {
+        "pagePath":"pages/privacy/privacy",
+        "text":"私人",
+        "iconPath":"icon/Privacy.png",
+        "selectIconPath":"icon/Privacy.png"
+        },
+        {
+          "pagePath":"pages/center/center",
+          "text":"个人中心",
+          "iconPath":"icon/home.png",
+          "selectIconPath":"icon/home.png"
+          }
+    ],
+    "color": "#000000",
+    "selectedColor": "#A9A9A9",
+    "backgroundColor": "#ffffff"
+  },
+  "plugins": {
+    "WechatSI": {
+        "version": "0.3.1",
+        "provider": "wx069ba97219f66d99"
+    }
+},
+
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

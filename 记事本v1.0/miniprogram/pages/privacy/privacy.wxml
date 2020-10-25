@@ -1,0 +1,29 @@
+<view class="content">
+  <image class="bg" src="cloud://notepad-vwmbg.6e6f-notepad-vwmbg-1302872857/img/bg-privacy.png"></image>
+  <view class="additem" style="border:5px solid #8a8383c1">
+    <view class="add-input-box" style=" border-right: 5px solid #8a8383c1">
+      <input class="add-input" placeholder="创建一个新的记事" value="{{input}}" bindinput="addinput"></input>
+    </view>
+    <image class="add-img" src="cloud://notepad-vwmbg.6e6f-notepad-vwmbg-1302872857/icon/write.png"></image>
+    <button class="add-btn" size="mini" plain="true" bindtap="send"></button>
+  </view>
+  <view class="itemcontainer">
+    <view class="pri-item"  wx:for="{{pritem}}" wx:key="index" id="{{index}}">
+      <view class="date">
+        <text>{{item.itemtime}}</text> 
+      </view>
+      <view class="item">
+        <view class="item-left">
+          <text class="item-con">{{item.iteminfo}}</text>
+        </view>
+        <view class="item-right">
+          <image src="cloud://notepad-vwmbg.6e6f-notepad-vwmbg-1302872857/icon/close.png" class="close-img"></image>
+            <button class="close-btn" bindtap="close" size="mini" plain="true" id="{{index}}"></button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <image class="alldel" src="cloud://notepad-vwmbg.6e6f-notepad-vwmbg-1302872857/icon/delete.png" bindtap="alldel"></image>
+  <image class="restore" src="cloud://notepad-vwmbg.6e6f-notepad-vwmbg-1302872857/icon/restore.png"
+  bindtap="restore"></image>
+</view>

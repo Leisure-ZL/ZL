@@ -1,0 +1,106 @@
+.itemcontainer{
+  width: 100%;
+  height: auto;
+  display: flex;
+  padding-top: 80rpx;
+  flex-direction: column-reverse;/*倒序排列*/
+}
+.date{
+  width: 710rpx;
+  height: 40rpx;
+  font-size: 12px;
+  color: #000000;
+}
+.item{
+  width: 700rpx;
+  height: 140rpx;
+  padding: 10rpx;
+  position: relative;
+  display: flex;
+  background-color: rgb(169, 181, 209);
+  opacity: 0.8;
+  z-index: 99;
+  font-family: KaiTi;
+  font-size: 1rem;
+}
+.item-right{
+  width: 50rpx;
+  height: 140rpx;
+}
+.item-con{
+  word-wrap: break-word;
+}
+.close-img{
+  width: 50rpx;
+  height: 50rpx;
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.close-btn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 50rpx;
+}
+.additem{
+  width: 730rpx;
+  height: 70rpx;
+  position: fixed;
+  display: flex;
+  top: 0rpx;
+  z-index: 999;
+  border:5px solid rgb(100, 173, 242);
+  background-color: #FFF;
+}
+.add-input-box{
+  width: 620rpx;
+  height: 70rpx;
+  margin-left: 20rpx;
+  border-right: 5px solid rgb(100, 173, 242);
+}
+.add-input{
+  height: 70rpx;
+  font-family: KaiTi;
+  font-size: 0.8rem;
+}
+.add-btn{
+  height: 70rpx;
+  position: absolute;
+  right: 15rpx;
+  top: 0; 
+}
+button[plain]{/*取出btn的边框*/
+  border: none;
+}
+.add-img{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  top: 0;
+  right: 15rpx; 
+}
+.alldel{
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 999;
+  position: fixed;
+  right: 20rpx;
+  bottom: 50rpx;
+}
+.restore{
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 999;
+  position: fixed;
+  right: 20rpx;
+  bottom: 140rpx;
+}
+.bg{
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  z-index: -1;
+  position: fixed;
+}
